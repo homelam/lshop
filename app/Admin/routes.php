@@ -11,6 +11,14 @@ Route::group([
 ], function (Router $router) {
 
     $router->get('/', 'HomeController@index');
+
+    // 会员管理
     $router->get('users', 'UsersController@index');
+
+    // 商品管理模块
     $router->get('products', 'ProductsController@index');
+    $router->get('products/create', 'ProductsController@create');
+    $router->post('products', 'ProductsController@store');
+    $router->get('products/{id}/edit', 'ProductsController@edit');
+    $router->put('products/{id}', 'ProductsController@update');
 });
