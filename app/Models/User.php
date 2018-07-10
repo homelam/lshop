@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -15,7 +15,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'mobile', 'email_verified'
+    ];
+
+    protected $casts = [
+        'email_verified' => 'boolean',
     ];
 
     /**
@@ -26,4 +30,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    // 用户和收货地址是一对多的关系
+    public function addresses()
+    {
+        return $this->hasMany(UserAddress::class);
+    }
 }

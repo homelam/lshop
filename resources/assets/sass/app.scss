@@ -7,3 +7,115 @@
 
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+// 通用样式
+body {
+    font-family: Hiragino Sans GB, "Hiragino Sans GB", Helvetica, "Microsoft YaHei", Arial,sans-serif;
+}
+
+/* 顶部导航 */
+
+.navbar-static-top {
+    border-color: #e7e7e7;
+    background-color: #fff;
+    box-shadow: 0px 1px 11px 2px rgba(42, 42, 42, 0.1);
+    border-top: 4px solid #00b5ad;
+    margin-bottom: 40px;
+    margin-top: 0px;
+}
+
+/* 底部样式 */
+html {
+    position: relative;
+    min-height: 100% ;
+}
+body {
+    margin-bottom: 60px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100% ;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #000;
+
+    .container {
+        padding-right: 15px;
+        padding-left: 15px;
+
+        p {
+            margin: 19px 0;
+            color: #c1c1c1;
+
+            a {
+                color: inherit;
+            }
+        }
+    }
+}
+
+.products-index-page {
+    .search-form {
+        padding: 0 20px 10px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #eee;
+    }
+    .products-list {
+        padding: 0 15px;
+        
+        .product-item {
+            padding: 0 5px;
+            margin-bottom: 10px;
+            
+            .product-content {
+                border: 1px solid #eee;
+                
+                .top {
+                    padding: 5px;
+                    img {
+                        width: 100%;
+                    }
+                    .price {
+                        margin-top: 5px;
+                        font-size: 20px;
+                        color: #ff0036;
+                        b {
+                            font-size: 14px;
+                        }
+                    }
+                    .title {
+                        margin-top: 10px;
+                        font-size: 12px;
+                    }
+                }
+                .bottom {
+                    font-size: 12px;
+                    display: flex;
+                    
+                    .sold_count span {
+                        color: #b57c5b;
+                        font-weight: bold;
+                    }
+                    .review_count span {
+                        color: #38b;
+                        font-weight: bold;
+                    }
+                    &>div {
+                        &:first-child {
+                            border-right: 1px solid #eee;
+                        }
+                        padding: 10px 5px;
+                        line-height: 12px;
+                        flex-grow: 1;
+                        border-top: 1px solid #eee;
+                    }
+                }
+            }
+        }
+    }
+    .pagination {
+        margin-right: 5px;
+    }
+}
