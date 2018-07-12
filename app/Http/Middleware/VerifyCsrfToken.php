@@ -12,6 +12,8 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        //
+        // 支付宝回调咩有csrf token
+        'payment/alipay/notify',
+        'payment/wechat/notify',
     ];
 }

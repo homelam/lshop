@@ -22,6 +22,6 @@ class OrderItem extends Model
 
     public function order()
     {
-        return $this->belonsTo(Order::class);
+        return $this->belongsTo(Order::class);
     }
 }

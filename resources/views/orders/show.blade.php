@@ -67,10 +67,35 @@
                 @endif
                 </div>
             </div>
+            <!-- 支付按钮开始 -->
+            @if(!$order->paid_at && !$order->closed)
+            <div class="payment-buttons">
+                <a class="btn btn-primary btn-sm" href="{{ route('payment.alipay', ['order' => $order->id]) }}">支付宝支付</a>
+                <button class="btn btn-primary btn-sm" id="btn-wechat-pay">微信支付</button>
+            </div>
+            @endif
+            <!-- 支付按钮结束 -->
         </div>
     </div>
     </div>
 </div>
 </div>
 </div>
+@endsection
+@section('scriptsAfterJs')
+<script>
+    $(document).ready(function() {
+        $('#btn-wechat-pay').click(function() {
+            swal({
+                content: $('<img src="{{ route('payment.wechat', ['order' => $order->id])}} />')[0],
+                buttons: ['关闭', '已完成支付'],
+            }).then(function(result) {
+                // 如果用户点击已完成付款，刷新页面
+                if (result) {
+                    location.reload();
+                }
+            });
+        });
+    });
+</script>
 @endsection
