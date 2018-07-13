@@ -51,7 +51,14 @@ Route::group(['middleware' => 'auth'], function() {
         // 订单列表
         Route::get('orders', 'OrdersController@index')->name('orders.index');
         Route::get('orders/{order}', 'OrdersController@show')->name('orders.show');
+        Route::post('orders/{order}/received', 'OrdersController@received')->name('orders.received'); // 用户确认收货
 
+        Route::get('orders/{order}/review', 'OrdersController@review')->name('orders.review.show'); // 评价页面显示
+        Route::post('orders/{order}/review', 'OrdersController@sendReview')->name('orders.review.store'); // 保存用户评价评分
+
+        // 申请退款
+        Route::post('orders/{order}/refund', 'OrdersController@applayRefund')->name('orders.apply_refund');
+        
         // 订单支付
         Route::get('payment/{order}/alipay', 'PaymentController@payByAlipay')->name('payment.alipay');
         Route::get('payment/alipay/return', 'PaymentController@alipayReturn')->name('payment.alipay.return');
@@ -61,6 +68,7 @@ Route::group(['middleware' => 'auth'], function() {
 
 Route::post('payment/alipay/notify', 'PaymentController@alipayNotify')->name('payment.alipay.notify');
 Route::post('payment/wechat/notify', 'PaymentController@wechatNotify')->name('payment.wechat.notify');
+Route::post('payment/wechat/refund_notify', 'PaymentController@wechatRefundNotify')->name('payment.wechat.refund_notify'); // 微信退款回调
 
 Route::get('products', 'ProductsController@index')->name('products.index');
 Route::get('products/{product}', 'ProductsController@show')->name('products.show');
