@@ -37,3 +37,11 @@ if (!function_exists('normalize_xml')) {
         return $result;
     }
 }
+
+// 格式化数字
+if (!function_exists('numberFormat')) {
+    function numberFormat($number)
+    {
+        return str_replace('.00', '', $number);
+    }
+}

@@ -334,7 +334,7 @@ body {
 }
 
 .orders-show-page {
-    font-size: 12px;
+    font-size: 14px;
     .vertical-middle {
         vertical-align: middle;
     }
@@ -390,7 +390,10 @@ body {
         font-family: Verdana,Tahoma,Helvetica,Arial;
         .total-amount {
             font-weight: bolder;
-            font-size: 14px;
+            font-size: 18px;
+        }
+        .coupon-desc {
+            font-size: 16px;
         }
         .value {
             display: inline-block;
