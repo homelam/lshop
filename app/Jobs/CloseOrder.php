@@ -45,6 +45,10 @@ class CloseOrder implements ShouldQueue
             // 将订单的closed修改为true
             $this->order->update(['closed' => true]);
 
+            if ($this->order->couponCode) {
+                $this->order->couponCode->changeUsed(false);
+            }
+
             // 循环归还商品库存
             foreach($this->order->items as $item) {
                 $item->productSku->addStock($item->amount);
