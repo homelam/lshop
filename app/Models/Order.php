@@ -33,6 +33,11 @@ class Order extends Model
         self::SHIP_STATUS_RECEIVED => '已签收'
     ];
 
+    public static $paymentMethodMap = [
+        'alipay' => '支付宝支付',
+        'wechat' => '微信支付'
+    ];
+
     protected $fillable = [
         'order_no',
         'address',
