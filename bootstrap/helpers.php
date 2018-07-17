@@ -1,4 +1,7 @@
 <?php
+
+use Illuminate\Support\Str;
+
 // 辅助函数
 if (!function_exists('route_class')) {
     function route_class()
@@ -43,5 +46,16 @@ if (!function_exists('numberFormat')) {
     function numberFormat($number)
     {
         return str_replace('.00', '', $number);
+    } 
+}
+
+if (!function_exists('getImageUrlAttribute')) {
+    function getImageUrlAttribute($image)
+    {
+        // 如果 image 字段本身就已经是完整的 url 就直接返回
+        if (Str::startsWith($image, ['http://', 'https://'])) {
+            return $this->attributes['image'];
+        }
+        return \Storage::disk('admin')->url($image);
     }
 }

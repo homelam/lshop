@@ -14,13 +14,19 @@ class Product extends Model
     ];
 
     protected $casts = [
-    'on_sale' => 'boolean', // on_sale 是一个布尔类型的字段
+        'on_sale' => 'boolean', // on_sale 是一个布尔类型的字段
     ];
     
     // 与商品SKU关联
     public function skus()
     {
-    return $this->hasMany(ProductSku::class);
+        return $this->hasMany(ProductSku::class);
+    }
+
+    // 与品牌关联
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
     }
 
     public function getImageUrlAttribute()

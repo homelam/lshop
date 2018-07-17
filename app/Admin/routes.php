@@ -37,4 +37,12 @@ Route::group([
     $router->get('coupon_codes/{id}/edit', 'CouponCodesController@edit');
     $router->put('coupon_codes/{id}', 'CouponCodesController@update');
     $router->delete('coupon_codes/{id}', 'CouponCodesController@destroy');
+
+    // 品牌管理模块
+    $router->get('brands', 'BrandsController@index');
+    $router->get('brands/create', 'BrandsController@create');
+    $router->post('brands', 'BrandsController@store');
+    $router->get('brands/{id}/edit', 'BrandsController@edit');
+    $router->put('brands/{id}', 'BrandsController@update');
+    $router->delete('brands/{id}', 'BrandsController@destroy');
 });
