@@ -91,7 +91,7 @@ class CouponCodesController extends Controller
     {
         return Admin::form(CouponCode::class, function (Form $form) {
 
-            $form->display('id', 'ID');
+            $form->hidden('id', 'ID');
             $form->text('name', '优惠券名称')->rules('required');
             $form->text('code', '优惠码')->rules(function($form) {
                 // 如果 $form->model()->id 不为空，代表是编辑操作
