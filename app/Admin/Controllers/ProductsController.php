@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\{Product, Brand};
+use App\Models\{Product, Brand, Category};
 
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -101,6 +101,9 @@ class ProductsController extends Controller
 
             // 创建一个输入框，第一个参数 title 是模型的字段名，第二个参数是该字段描述
             $form->text('name', '商品名称')->rules('required');
+            
+            // 商品分类
+            $form->select('cate_id', '商品分类')->options(Category::selectOptions());
 
             // 商品品牌
             $form->select('brand_id', '商品品牌')->options(Brand::all()->pluck('name', 'id'));
