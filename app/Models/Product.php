@@ -10,7 +10,7 @@ class Product extends Model
     //
     protected $fillable = [
         'name', 'description', 'image', 'on_sale', 
-        'rating', 'sold_count', 'review_count', 'price'
+        'rating', 'sold_count', 'review_count', 'price', 'brand_id', 'cate_id'
     ];
 
     protected $casts = [
@@ -27,6 +27,12 @@ class Product extends Model
     public function brand()
     {
         return $this->belongsTo(Brand::class);
+    }
+
+    // 与分类之间的关联
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 
     public function getImageUrlAttribute()

@@ -45,4 +45,7 @@ Route::group([
     $router->get('brands/{id}/edit', 'BrandsController@edit');
     $router->put('brands/{id}', 'BrandsController@update');
     $router->delete('brands/{id}', 'BrandsController@destroy');
+
+    // 分类管理模块
+    $router->resource('categories', 'CategoriesController');
 });
