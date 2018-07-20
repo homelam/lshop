@@ -70,6 +70,19 @@
                     <textarea name="remark" class="form-control" rows="3"></textarea>
                 </div>
             </div>
+            <!-- 优惠券开始 -->
+            <div class="form-group">
+                <label  class="control-label col-sm-3">优惠券</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" name="coupon_code">
+                    <span class="help-block" id="coupon_desc"></span>
+                </div>
+                <div class="col-sm-3">
+                    <button type="button" class="btn btn-success" id="btn-check-btn">检查</button>
+                    <button type="button" class="btn btn-danger" style="display: none;" id="btn-cancel-coupon">取消</button>
+                </div>
+            </div>
+            <!-- 优惠券结束 -->
             <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-3">
                     <button type="button" class="btn btn-primary btn-create-order">提交订单</button>
@@ -121,6 +134,8 @@
                 address_id: $('#order-form').find('select[name=address]').val(),
                 items: [],
                 remark: $('#order-form').find('textarea[name=remark]').val(),
+                //增加优惠码的提交
+                coupon_code: $('input[name=coupon_code]').val(),
             };
             // 遍历table
             $('table tr[data-id]').each(function() {
@@ -141,7 +156,6 @@
                     return;
                 }
             });
-            console.log(req);
             // 发送post请求
             axios.post("{{ route('orders.store') }}", req).then(function(response) {
                 swal('订单提交成功', '', 'success').then(function(){
@@ -158,11 +172,50 @@
                     });
                     html += '</div>';
                     swal({content: $(html)[0], icon: 'error'})
+                } else if (error.response.status === 403) {
+                    // NOTE: 订单金额不满足优惠券最低金额
+                    swal(error.response.data.msg, '', 'error');
                 } else {
                     // 其他情况应该是系统挂了
                     swal('系统错误', '', 'error');
                 }
             });
+        });
+
+        // 检查优惠码
+        $('#btn-check-btn').click(function() {
+            // 获取用户输入的优惠码
+            var code = $('input[name=coupon_code]').val();
+            // 如果没有输入则弹框提示
+            if (!code) {
+                swal('请输入优惠码', '', 'warning');
+                return;
+            }
+            // 检测优惠码是否存在
+            axios.get('/coupon_codes/' + encodeURIComponent(code)).then(function(response) {
+                // console.log(response.data);
+                $('#coupon_desc').text(response.data.description);
+                $('input[name=coupon_code]').prop('readonly', true); // 禁用输入框
+                $('#btn-cancel-coupon').show(); // 显示 取消 按钮
+                $('#btn-check-coupon').hide(); // 隐藏 检查 按钮
+            }, function(error) {
+                // 如果返回码是404,说明优惠码不存在或暂不可用
+                if (error.response.status == 404) {
+                    swal('优惠码不存在或暂不可用', '', 'error');
+                } else if (error.response.status == 403) {
+                    swal(error.response.data.msg, '', 'error');
+                } else {
+                    swal('系统错误，请稍候重试', '', 'error');
+                }
+            });
+        });
+
+        // 隐藏 按钮点击事件
+        $('#btn-cancel-coupon').click(function () {
+            $('#coupon_desc').text(''); // 隐藏优惠信息
+            $('input[name=coupon_code]').prop('readonly', false);  // 启用输入框
+            $('#btn-cancel-coupon').hide(); // 隐藏 取消 按钮
+            $('#btn-check-coupon').show(); // 显示 检查 按钮
         });
     });
 </script>

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Ramsey\Uuid\Uuid;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
@@ -18,10 +19,23 @@ class Order extends Model
     const SHIP_STATUS_DELIVERED = 'delivered';
     const SHIP_STATUS_RECEIVED = 'received';
 
+    public static $refundStatusMap = [
+        self::REFUND_STATUS_PENDING => '未申请退货',
+        self::REFUND_STATUS_APPLIED => '已申请退货',
+        self::REFUND_STATUS_PROCESSING => '处理中',
+        self::REFUND_STATUS_SUCCESS => '退款成功',
+        self::REFUND_STATUS_FAILED => '退款失败',        
+    ];
+
     public static $shipStatusMap = [
         self::SHIP_STATUS_PENDING => '未发货',
         self::SHIP_STATUS_DELIVERED => '已发货',
         self::SHIP_STATUS_RECEIVED => '已签收'
+    ];
+
+    public static $paymentMethodMap = [
+        'alipay' => '支付宝支付',
+        'wechat' => '微信支付'
     ];
 
     protected $fillable = [
@@ -86,6 +100,17 @@ class Order extends Model
         return false;
     }
 
+    public static function getAvailableRefundNo()
+    {
+        do {
+            // Uuid类可以用来生成大概率不重复的字符串
+            $no = Uuid::uuid4()->getHex();
+            // 为了避免重复我们在生成之后在数据库中查询看看是否已经存在相同的退款订单号
+        } while (self::query()->where('refund_no', $no)->exists());
+
+        return $no;
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -94,5 +119,10 @@ class Order extends Model
     public function items()
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    public function couponCode()
+    {
+        return $this->belongsTo(CouponCode::class);
     }
 }
