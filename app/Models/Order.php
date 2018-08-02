@@ -44,7 +44,7 @@ class Order extends Model
         'total_amount',
         'remark',
         'paid_at',
-        'payment_menthod',
+        'payment_method',
         'payment_no',
         'refund_status',
         'refund_no',

@@ -186,7 +186,7 @@ class OrdersController extends Controller
                 }
                 break;
             default:
-                throw new InvalidException('未知订单支付方式：'.$order->payment_method);
+                throw new InvalidRequestException('未知订单支付方式：'.$order->payment_method);
                 break;
         }
     }
