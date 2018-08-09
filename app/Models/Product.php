@@ -35,6 +35,12 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
+    // 商品图片
+    public function images()
+    {
+        return $this->hasOne(ProductGallery::class);
+    }
+
     public function getImageUrlAttribute()
     {
         // 如果 image 字段本身就已经是完整的 url 就直接返回

@@ -98,33 +98,38 @@ class ProductsController extends Controller
     {
         // 创建一个表单
         return Admin::form(Product::class, function (Form $form) {
+            $form->tab('基本信息', function($form) {
+                // 创建一个输入框，第一个参数 title 是模型的字段名，第二个参数是该字段描述
+                $form->text('name', '商品名称')->rules('required');
+                
+                // 商品分类
+                $form->select('cate_id', '商品分类')->options(Category::selectOptions());
 
-            // 创建一个输入框，第一个参数 title 是模型的字段名，第二个参数是该字段描述
-            $form->text('name', '商品名称')->rules('required');
-            
-            // 商品分类
-            $form->select('cate_id', '商品分类')->options(Category::selectOptions());
+                // 商品品牌
+                $form->select('brand_id', '商品品牌')->options(Brand::all()->pluck('name', 'id'));
 
-            // 商品品牌
-            $form->select('brand_id', '商品品牌')->options(Brand::all()->pluck('name', 'id'));
+                // 创建一个选择图片的框
+                $form->image('image', '封面图片')->rules('required|image');
 
-            // 创建一个选择图片的框
-            $form->image('image', '封面图片')->rules('required|image');
+                // 创建一组单选框
+                $form->radio('on_sale', '上架')->options(['1' => '是', '0'=> '否'])->default('0');
 
-            // 创建一个富文本编辑器
-            $form->editor('description', '商品描述')->rules('required');
+            })->tab('商品描述', function($form) {
+                // 创建一个富文本编辑器
+                $form->editor('description', '商品描述')->rules('required');
 
-            // 创建一组单选框
-            $form->radio('on_sale', '上架')->options(['1' => '是', '0'=> '否'])->default('0');
-
-            // 直接添加一对多的关联模型
-            $form->hasMany('skus', 'SKU 列表', function (Form\NestedForm $form) {
-                $form->text('sku', 'SKU 名称')->rules('required');
-                $form->text('description', 'SKU 描述')->rules('required');
-                $form->text('price', '单价')->rules('required|numeric|min:0.01');
-                $form->text('stock', '剩余库存')->rules('required|integer|min:0');
+            })->tab('商品模型', function($form) {
+                // 直接添加一对多的关联模型
+                $form->hasMany('skus', 'SKU 列表', function (Form\NestedForm $form) {
+                    $form->text('sku', 'SKU 名称')->rules('required');
+                    $form->text('description', 'SKU 描述')->rules('required');
+                    $form->text('price', '单价')->rules('required|numeric|min:0.01');
+                    $form->text('stock', '剩余库存')->rules('required|integer|min:0');
+                    $form->image('picture', 'Picture');
+                });
+            })->tab('商品相册', function($form) {
+                $form->multipleImage('images.pictures', '商品相册')->removable();
             });
-
             // 定义事件回调，当模型即将保存时会触发这个回调
             $form->saving(function (Form $form) {
                 $form->model()->price = collect($form->input('skus'))->where(Form::REMOVE_FLAG_NAME, 0)->min('price');
