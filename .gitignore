@@ -18,3 +18,5 @@ yarn-error.log
 
 /public/fonts
 /public/mix-manifest.json
+
+.DS_Store
