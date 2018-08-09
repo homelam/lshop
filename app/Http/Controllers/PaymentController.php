@@ -7,7 +7,7 @@ use App\Models\Order;
 use App\Exceptions\InvalidRequestException;
 use Endroid\QrCode\QrCode;
 use App\Events\OrderPaid;
-
+use Carbon\Carbon;
 
 class PaymentController extends Controller
 {
@@ -48,7 +48,7 @@ class PaymentController extends Controller
         $data = app('alipay')->verify();
 
         //$data->order_trade_no 拿到订单流水号，并在数据库中查询
-        $order = Order::where('order_no', $data->order_trade_no)->first();
+        $order = Order::where('order_no', $data->out_trade_no)->first();
         if (!$order) {
             return 'fail';
         } 
