@@ -113,10 +113,11 @@ class ProductsController extends Controller
 
                 // 创建一组单选框
                 $form->radio('on_sale', '上架')->options(['1' => '是', '0'=> '否'])->default('0');
-
+                // 创建一个富文本编辑器
+                
             })->tab('商品描述', function($form) {
                 // 创建一个富文本编辑器
-                $form->editor('description', '商品描述')->rules('required');
+                $form->ueditor('description', '商品描述')->rules('required');
 
             })->tab('商品模型', function($form) {
                 // 直接添加一对多的关联模型
