@@ -98,7 +98,7 @@ class BrandsController extends Controller
             // 官网
             $form->url('site_url', '官方网址')->rules('required|url');
             // 创建一个富文本编辑器
-            $form->editor('description', '品牌描述')->rules('required');
+            $form->textarea('description', '品牌描述')->rules('required');
             // 创建一组单选框
             $form->radio('is_show', '是否显示')->options(['1' => '是', '0'=> '否'])->default('1');
 

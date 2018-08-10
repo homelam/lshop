@@ -111,7 +111,7 @@ class CategoriesController extends Controller
 
             $form->text('name', '分类名称');
             // 创建一个富文本编辑器
-            $form->editor('description', '分类描述');
+            $form->textarea('description', '分类描述');
 
             // 创建一组单选框
             $form->radio('is_show', '是否显示')->options(['1' => '是', '0'=> '否'])->default('1');
