@@ -54,7 +54,7 @@ if (!function_exists('getImageUrlAttribute')) {
     {
         // 如果 image 字段本身就已经是完整的 url 就直接返回
         if (Str::startsWith($image, ['http://', 'https://'])) {
-            return $this->attributes['image'];
+            return $image;
         }
         return \Storage::disk('admin')->url($image);
     }

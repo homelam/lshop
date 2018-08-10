@@ -71,7 +71,7 @@ class BrandsController extends Controller
             $grid->id('ID')->sortable();
             $grid->name('品牌名称');
             $grid->logo()->display(function($logo) {
-                return "<img src=".getImageUrlAttribute($logo)." width='30px'/>";
+                return "<img src=" . getImageUrlAttribute($logo) . " width='30px'/>";
             });
 
             $grid->site_url('官网');

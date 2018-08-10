@@ -7,7 +7,7 @@
         <div class="panel panel-default">
             <div class="panel-body product-info">
                 <div class="row">
-                    <div class="col-sm-5">
+                    <div class="col-sm-5 img">
                         <img class="cover" src="{{ $product->image_url }}" alt="">
                     </div>
                     <div class="col-sm-7">
@@ -22,7 +22,7 @@
                             <label>选择</label>
                             <div class="btn-group" data-toggle="buttons">
                                 @foreach($product->skus as $sku)
-                                <label class="btn btn-default sku-btn" data-price="{{ $sku->price}}" data-stock="{{ $sku->stock }}" data-toggle="tooltip" title="{{ $sku->description }}" data-placement="bottom">
+                                <label class="btn btn-default sku-btn" data-picture="{{ $sku->picture ? getImageUrlAttribute($sku->picture) : $product->image_url }}" data-price="{{ $sku->price}}" data-stock="{{ $sku->stock }}" data-toggle="tooltip" title="{{ $sku->description }}" data-placement="bottom">
                                 <input type="radio" name="skus" autocomplete="off" value="{{ $sku->id }}"> {{ $sku->sku }}
                                 </label>
                                 @endforeach
@@ -87,6 +87,7 @@
         $('.sku-btn').click(function () {
             $('.product-info .price span').text($(this).data('price'));
             $('.product-info .stock').text('库存：' + $(this).data('stock') + '件');
+            $('.product-info .img').find('img').attr('src', $(this).data('picture'));
         });
 
         // 监听收藏按钮事件
