@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'mobile', 'email_verified'
+        'name', 'email', 'password', 'mobile', 'email_verified', 'birthday', 'last_login_ip', 'last_login_at'
     ];
 
     protected $casts = [
@@ -29,6 +29,11 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password', 'remember_token',
+    ];
+
+    public static $verifiedColors = [
+        'YES'    => 'green',
+        'NO'   => 'red',
     ];
 
     // 用户和收货地址是一对多的关系
