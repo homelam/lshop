@@ -26,7 +26,7 @@ class RegisteredListener implements ShouldQueue
      * @param  object  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(Registered $event)
     {
         // 获取刚注册的用户
         $user = $event->user;

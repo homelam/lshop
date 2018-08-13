@@ -13,8 +13,10 @@ Route::group([
     $router->get('/', 'HomeController@index');
 
     // 会员管理
-    $router->get('users', 'UsersController@index');
-
+    $router->resources([
+        'users' => MembersController::class,
+    ]);
+    
     // 商品管理模块
     $router->get('products', 'ProductsController@index');
     $router->get('products/create', 'ProductsController@create');
