@@ -75,3 +75,6 @@ Route::post('payment/wechat/refund_notify', 'PaymentController@wechatRefundNotif
 
 Route::get('products', 'ProductsController@index')->name('products.index');
 Route::get('products/{product}', 'ProductsController@show')->name('products.show');
+
+Route::get('oauth/{driver}', 'SocialiteController@redirectToProvider')->name('social.login');
+Route::get('oauth/{driver}/callback', 'SocialiteController@handleProviderCallback');
