@@ -15,7 +15,7 @@
                             <label for="account" class="col-md-4 control-label">Account</label>
 
                             <div class="col-md-6">
-                                <input id="account" type="text" class="form-control" name="account" value="{{ old('account') }}" required autofocus>
+                                <input id="account" type="text" class="form-control" name="account" placeholder="邮箱/手机" value="{{ old('account') }}" required autofocus>
 
                                 @if ($errors->has('account'))
                                     <span class="help-block">
@@ -58,6 +58,16 @@
                                 <a class="btn btn-link" href="{{ route('password.request') }}">
                                     Forgot Your Password?
                                 </a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-8 col-md-offset-4">
+                                <a class="btn btn-link" href="{{ route('social.login', ['driver' => 'google'])}}"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                                <a class="btn btn-link" href="{{ route('social.login', ['driver' => 'wechat'])}}"><i class="fa fa-weixin" aria-hidden="true"></i></a>
+                                <a class="btn btn-link" href="{{ route('social.login', ['driver' => 'weibo'])}}"><i class="fa fa-weibo" aria-hidden="true"></i></a>
+                                <a class="btn btn-link" href="{{ route('social.login', ['driver' => 'qq'])}}"><i class="fa fa-qq" aria-hidden="true"></i></a>
+                                <a class="btn btn-link" href="{{ route('social.login', ['driver' => 'facebook'])}}"><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
+                                <a class="btn btn-link" href="{{ route('social.login', ['driver' => 'linkedin'])}}"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
                             </div>
                         </div>
                     </form>
